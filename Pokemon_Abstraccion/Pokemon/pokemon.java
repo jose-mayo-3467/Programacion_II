@@ -47,4 +47,13 @@ public class Pokemon {
     public static void main(String[] args) {
     
     }
+        public Movimiento buscarMovimientosPorNombre(String nombre){
+    for(Movimiento movimiento : movimientos){
+    if(movimiento.getNombre().equeals(nombre)){
+        return movimiento;
+            }
+        }
+        return null;
+        }
+    }
 }
