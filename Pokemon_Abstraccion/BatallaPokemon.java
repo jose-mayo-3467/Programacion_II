@@ -1,3 +1,7 @@
+package pokemon_herencia;
+import pokemon.pokemonDragon;
+import pokemon.pokemonFuego;
+
 public class BatallaPokemon{
     
      public static void main(String[] args) {
