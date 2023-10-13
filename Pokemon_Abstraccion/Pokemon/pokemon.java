@@ -1,3 +1,5 @@
+package pokemon_herencia;
+
 public class Pokemon {
     
     private int hp;
