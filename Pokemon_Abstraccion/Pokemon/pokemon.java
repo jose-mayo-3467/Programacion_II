@@ -1,17 +1,25 @@
-package pokemon_herencia;
+package pokemon;
 
-public class Pokemon {
+import pokemon_herencia.Tipo;
+
+public abstract class Pokemon {
     
-    private int hp;
-    private int nivel;
     private String nombre;
-    private String tipo;
+    private Tipo tipo;
+    private int hp = 250;
+    private int nivel;
+    private Movimiento movimiento[];
 
-    public Pokemon(int nivel, String nombre, String tipo) {
-        this.nivel = nivel;
+
+    public Pokemon(String nombre, Tipo tipo,int nivel) {
         this.nombre = nombre;
         this.tipo = tipo;
-        int hp = 100;
+        this.nivel = nivel;    
+        this.movimiento = new Movimiento[4];
+    }
+
+    public Movimiento[] getMovimiento() {
+        return movimiento;
     }
 
 
@@ -27,34 +35,39 @@ public class Pokemon {
         return nombre;
     }
 
-    public String getTipo() {
+    public Tipo getTipo() {
         return tipo;
     }
-    private void calculaDanio(int danio) {
+    private void calculaDanio(int danio, double efectividad) {
+        double puntosRestados=danio*efectividad;
         this.hp -= danio;
-            System.out.printf("%s recibe %d puntos de danio\n",
-            this.getNombre(), danio);
+            System.out.printf("%s recibe %d puntos de danio\n",this.getNombre(), danio);
     }
-    public void recibirAtaque(String movimiento) {
-        System.out.printf("%s recibe ATK %s\n", this.getNombre(), movimiento);
-        calculaDanio((int)( Math.random() * 10 + 1));
+    public void recibirAtaque(String movimiento, double efectividad) {
+        System.out.printf("%s recibe ATK %s\n", this.getNombre(),movimiento.getNombre());
+        calculaDanio(movimiento.getPuntosDeAtaque(), efectividad);
+        System.out.printf("%s tiene ahora %s puntos de vida \n",this.getNombre(), this.hp);
     }
-    public void atacar(String movimiento, Pokemon pokemon) {
-        System.out.printf("%s ataca a %s con %s\n", this.getNombre(),
-        pokemon.getNombre(), movimiento);
-        pokemon.recibirAtaque(movimiento);
+     protected boolean seHaConcretadoAtaque(Movimiento movimiento, Pokemon pokemon){
+        System.out.printf("\n%s ataca a %s con %s\n", this.getNombre(), pokemon.getNombre(), movimiento.getNombre());
+        double efectividad= obtenerEfectividad(pokemon);
+        
+        if (movimiento.getpp()>0){
+            pokemon.recibirAtaque(movimiento,efectividad);
+            return true;
+        }else{
+            System.out.println("El movimiento no tiene puntos de pp");
+            return false;
         }
-    public static void main(String[] args) {
+    }
     
-    }
-        public Movimiento buscarMovimientosPorNombre(String nombre){
-    for(Movimiento movimiento : movimientos){
-    if(movimiento.getNombre().equeals(nombre)){
-        return movimiento;
-            }
-        }
-        return null;
+    public void atacar(int m, Pokemon pokemon) {
+        Movimiento movimiento= getMovimientos(m);
+        boolean seHaConcretadoAtaque= seHaConcretadoAtaque(movimiento, pokemon);
+        if (seHaConcretadoAtaque){
+            pokemon.getMovimientos(m).setPp(movimiento.getPp()-1);
         }
     }
+    
     public abstract double obtenerEfectividad(Pokemon pokemon);
 }
