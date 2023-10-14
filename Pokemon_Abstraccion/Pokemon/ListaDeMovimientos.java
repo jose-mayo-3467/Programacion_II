@@ -21,4 +21,12 @@ public class ListaMovimientos {
     movimiento.add(new Movimiento()("Arañaso", 40, Tipo.DRAGON, 56));
     movimiento.add(new Movimiento()("Cuchillada", 70, Tipo.DRAGON, 32));
     }
+            public Movimiento buscarMovimientoPorNombre(String nombre){   
+            for(Movimiento movimiento: movimientos){
+                if (movimiento.getNombre().equals(nombre)){
+                    return movimiento;
+                }
+            }
+            return null;
+        }
 }
