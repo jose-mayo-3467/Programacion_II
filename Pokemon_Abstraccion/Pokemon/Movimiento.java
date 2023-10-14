@@ -1,9 +1,9 @@
-package pokemon_herencia;
+package pokemon;
 
-public class Movimiento {
+class Movimiento {
     private String nombre;
     private int PuntosDeAtaque;
-    private int pp;
+    private int pp; //significa puntos de poder, al llegar a 0 el pokemon ya no puede segir atacando
     private Tipo tipo;
 
     public Movimiento(String nombre, int PuntosDeAtaque, int pp, Tipo tipo) {
@@ -28,6 +28,12 @@ public class Movimiento {
     public Tipo getTipo() {
         return tipo;
     }
+
+    public void setPp(int pp) {
+        this.pp = pp;
+    }
+    
+}
 
     public void setPp(int pp) {
         this.pp = pp;
