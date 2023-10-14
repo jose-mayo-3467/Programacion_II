@@ -56,4 +56,5 @@ public class Pokemon {
         return null;
         }
     }
+    public abstract double obtenerEfectividad(Pokemon pokemon);
 }
